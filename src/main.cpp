@@ -1,4 +1,8 @@
+#include "NormalizedMessage.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 using namespace std;
 
@@ -6,17 +10,27 @@ using namespace std;
 int main(){
     cout << "Hello, World!" << endl;
 
-    size_t size = 16;
+    // vector<NormalizedMessage> reader;
 
-    char* buffer = new char[size];
-    char* buffer2 = new char[size];
+    ifstream file("data/INTC_2012-06-21_34200000_57600000_message_10.csv");
 
-    for(size_t i = 0; i <= size; ++i){
-        buffer[i] = 'A';
+    if(!file.is_open()){
+        cerr << "Error opening, why tho?" << endl;
+        return 1;
     }
 
-    delete[] buffer;
-    delete[] buffer2;
+    string firstLine; 
+    string secondLine;
+    if(getline(file, firstLine)){
+        cout << "First Line is: " << firstLine << endl;
+    }if(getline(file, secondLine)){
+        cout << "Second Line is ? " << secondLine << endl;
+    }
+
+
+
+
+
     return 0;
 
 }
