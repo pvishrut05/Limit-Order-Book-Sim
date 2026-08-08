@@ -1,4 +1,5 @@
 #include "NormalizedMessage.h"
+#include "LobsterMessageReader.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -10,22 +11,22 @@ using namespace std;
 int main(){
     cout << "Hello, World!" << endl;
 
-    // vector<NormalizedMessage> reader;
+    vector<NormalizedMessage> reader;
 
-    ifstream file("data/INTC_2012-06-21_34200000_57600000_message_10.csv");
+    int readerErr = LobsterMessageReader(reader);
 
-    if(!file.is_open()){
-        cerr << "Error opening, why tho?" << endl;
-        return 1;
+    if(readerErr != 0){
+        cout << "Ran into a error";
+    }else{
+        for(auto i = 0; i < reader.size(); i++){
+            cout << reader[i].timestamp_ns << endl;
+        }
+        
     }
 
-    string firstLine; 
-    string secondLine;
-    if(getline(file, firstLine)){
-        cout << "First Line is: " << firstLine << endl;
-    }if(getline(file, secondLine)){
-        cout << "Second Line is ? " << secondLine << endl;
-    }
+
+
+
 
 
 
