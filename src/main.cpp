@@ -1,28 +1,51 @@
 #include "NormalizedMessage.h"
 #include "LobsterMessageReader.h"
+#include "ReferenceBook.h"
+#include "ReferenceBookReader.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 
-using namespace std;
+
 
 
 int main(){
     cout << "Hello, World!" << endl;
 
-    vector<NormalizedMessage> reader;
+    vector<NormalizedMessage> message_reader;
 
-    int readerErr = LobsterMessageReader(reader);
+    int readerErr = LobsterMessageReader(message_reader);
 
     if(readerErr != 0){
         cout << "Ran into a error";
     }else{
-        for(auto i = 0; i < reader.size(); i++){
-            cout << reader[i].timestamp_ns << endl;
+        for(auto i = 0; i < 24; i++){
+            cout << message_reader[i].timestamp_ns << endl;
         }
         
     }
+
+
+    cout<< endl << endl;
+
+    vector<ReferenceBook> ob_reader;
+
+    int ob_err = referenceBookReader(ob_reader);
+
+    if(ob_err != 0){
+        cout << "Error " << endl;
+    }else{
+        for(int i = 0; i < 5 && i < ob_reader.size(); i++){
+            for(int j = 0; j < 10; j++){
+                cout << ob_reader[i].ask_px[j] << " " << ob_reader[i].ask_sz[j] << " " << ob_reader[i].bid_px[j] << " " << ob_reader[i].bid_sz[j] << "|";
+            }
+            cout << endl;
+        }
+    }
+
+
+
 
 
 

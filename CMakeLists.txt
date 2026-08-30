@@ -13,7 +13,9 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O2 -g")
 add_library(LOBSim
     src/LOBSim.cpp
     src/LobsterMessageReader.cpp
+    src/ReferenceBookReader.cpp
     include/NormalizedMessage.h
+    include/ReferenceBook.h
 )
 
 target_include_directories(LOBSim PUBLIC include)

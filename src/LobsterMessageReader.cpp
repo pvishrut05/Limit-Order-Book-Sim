@@ -25,8 +25,8 @@ int LobsterMessageReader(vector<NormalizedMessage> &reader){
 
     //TODO: comment out i when done or when testing.
     int i = 0; //i is only for debugging purpose 
-    //TODO: when you do remove the i, do a reserve()
-
+    //TODO: when you do remove the i, do a reserve(1000000);
+    //TODO: add try and catch error handlers
     while(getline(file, temp_file_read) && i <= 25){
 
         stringstream ss(temp_file_read);
@@ -121,8 +121,6 @@ int LobsterMessageReader(vector<NormalizedMessage> &reader){
         i++;
 
     }
-
-
 
     return 0;
 
