@@ -7,9 +7,9 @@
 
 enum class Field {Occupancy, Price, Size};
 enum class BookSide {Bid, Ask};
-struct Mismatch{
+struct DiffResult{
     bool match = true;
-    
+
     BookSide side = BookSide::Bid;
     int level = 0;
     Field field = Field::Occupancy;

@@ -14,10 +14,11 @@ add_library(LOBSim
     src/LOBSim.cpp
     src/LobsterMessageReader.cpp
     src/ReferenceBookReader.cpp
+    src/BookDiff.cpp
     include/NormalizedMessage.h
     include/ReferenceBook.h
     include/TopOfBook.h
-    include/Mismatch.h
+    include/DiffResult.h
 )
 
 target_include_directories(LOBSim PUBLIC include)
