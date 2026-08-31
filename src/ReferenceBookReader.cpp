@@ -44,12 +44,15 @@ int referenceBookReader(vector<ReferenceBook> &reader){
                 r = std::from_chars(cur, end, raw.ask_sz[i]);
                 if(r.ec != std::errc()){ cout << "ran into a error at ask_size " << i << " " << j << endl; return 1;}
                 cur = r.ptr + 1;
+                raw.n_ask++;
                 r = std::from_chars(cur, end, raw.bid_px[i]);
                 if(r.ec != std::errc()){ cout << "ran into a error at bid_price " << i << " " << j << endl; return 1;}
                 cur = r.ptr + 1;
                 r = std::from_chars(cur, end, raw.bid_sz[i]);
                 if(r.ec != std::errc()){ cout << "ran into a error at bid_size " << i << " " << j << endl; return 1;}
                 cur = r.ptr + 1;
+                raw.n_bid++;
+
 
             }
      

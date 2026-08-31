@@ -16,6 +16,8 @@ add_library(LOBSim
     src/ReferenceBookReader.cpp
     include/NormalizedMessage.h
     include/ReferenceBook.h
+    include/TopOfBook.h
+    include/Mismatch.h
 )
 
 target_include_directories(LOBSim PUBLIC include)

@@ -37,6 +37,8 @@ int main(){
         cout << "Error " << endl;
     }else{
         for(int i = 0; i < 5 && i < ob_reader.size(); i++){
+
+            cout << ob_reader[i].n_ask << " testing " << ob_reader[i].n_bid << endl;
             for(int j = 0; j < 10; j++){
                 cout << ob_reader[i].ask_px[j] << " " << ob_reader[i].ask_sz[j] << " " << ob_reader[i].bid_px[j] << " " << ob_reader[i].bid_sz[j] << "|";
             }
