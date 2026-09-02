@@ -37,3 +37,8 @@ DiffResult BookDiff(TopOfBook& mine, TopOfBook& real){
 
     return DiffResult{};
 }
+
+
+bool IsSane(const TopOfBook& book){
+    
+}
