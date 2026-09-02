@@ -16,13 +16,13 @@ inline MsgType convertMsgType(uint8_t type){
 
 inline const char* msgToChar(MsgType type){
     switch (type){
-        case MsgType::New: return "New";
-        case MsgType::Cancel: return "Cancel";
-        case MsgType::Delete: return "Delete";
-        case MsgType::Execute: return "Execute";
-        case MsgType::Hidden: return "Hidden";
-        case MsgType::Cross: return "Cross";
-        case MsgType::Halt: return "Halt";
+        case MsgType::New:      return "New";
+        case MsgType::Cancel:   return "Cancel";
+        case MsgType::Delete:   return "Delete";
+        case MsgType::Execute:  return "Execute";
+        case MsgType::Hidden:   return "Hidden";
+        case MsgType::Cross:    return "Cross";
+        case MsgType::Halt:     return "Halt";
     }
     return "Error processing msgToChar";
 }
