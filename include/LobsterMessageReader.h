@@ -7,6 +7,6 @@
 
 
 
-int LobsterMessageReader(vector<NormalizedMessage> &reader);
+int LobsterMessageReader(vector<NormalizedMessage> &reader, string pathway);
 
 #endif

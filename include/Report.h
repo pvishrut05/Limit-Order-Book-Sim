@@ -7,6 +7,6 @@
 #include"BookDiff.h"
 void print_histogram(ostream& os, vector<NormalizedMessage>& nm, size_t ref_row);
 
-void print_mismatch(ostream& os, NormalizedMessage& nm, DiffResult& d, TopOfBook& mine, TopOfBook& ref, int lvl); 
+void print_mismatch(ostream& os, size_t event_idx, const NormalizedMessage& nm, const DiffResult& d, const TopOfBook& mine, const TopOfBook& ref, int lvl); 
 
 #endif

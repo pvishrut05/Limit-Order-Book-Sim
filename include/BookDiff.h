@@ -6,7 +6,7 @@
 
 
 
-DiffResult BookDiff(TopOfBook& mine, TopOfBook& real);
+DiffResult BookDiff(TopOfBook& mine, TopOfBook& real, int lvl);
 
 
 #endif

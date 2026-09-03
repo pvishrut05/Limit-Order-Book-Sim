@@ -11,9 +11,9 @@
 
 //TODO: Add trys and catch, error handlings
 
-int LobsterMessageReader(vector<NormalizedMessage> &reader){
+int LobsterMessageReader(vector<NormalizedMessage> &reader, string pathway){
 
-    ifstream file("data/INTC_2012-06-21_34200000_57600000_message_10.csv");
+    ifstream file(pathway);
 
     if(!file.is_open()){
         cerr << "Error opening, why tho?" << endl;
@@ -24,10 +24,11 @@ int LobsterMessageReader(vector<NormalizedMessage> &reader){
     string temp_file_read;
 
     //TODO: comment out i when done or when testing.
-    int i = 0; //i is only for debugging purpose 
-    //TODO: when you do remove the i, do a reserve(1000000);
+    //int i = 0; //i is only for debugging purpose 
+    //TODO: when you do remove the i, do a reserve(1,000,00);
     //TODO: add try and catch error handlers
-    while(getline(file, temp_file_read) && i <= 25){
+    reader.reserve(1000000);
+    while(getline(file, temp_file_read)){
 
         stringstream ss(temp_file_read);
 
@@ -118,7 +119,6 @@ int LobsterMessageReader(vector<NormalizedMessage> &reader){
 
         reader.emplace_back(time, type, id, sz, p, s);
 
-        i++;
 
     }
 

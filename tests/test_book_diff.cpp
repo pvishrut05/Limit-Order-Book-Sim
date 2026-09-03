@@ -42,7 +42,7 @@ TEST_CASE("Two identical books match"){
     TopOfBook same = makeTest({{275200, 66}, {275100, 400}, {275300, 1000}, {275000, 100}},
                               {{275200, 66}, {275100, 400}, {275300, 1000}, {275000, 100}});
 
-    DiffResult check = BookDiff(same, same);
+    DiffResult check = BookDiff(same, same, 5);
 
     CHECK(check.match);
 }
@@ -54,7 +54,7 @@ TEST_CASE("Size differs at bid lvl 1"){
     TopOfBook act = makeTest({{275200, 66}, {275100, 400}, {275300, 1000}, {275000, 100}},
                              {{275200, 67}, {275100, 400}, {275300, 1000}, {275000, 100}});
 
-    DiffResult check = BookDiff(mine, act);
+    DiffResult check = BookDiff(mine, act, 5);
     CHECK_FALSE(check.match);
     CHECK(check.side == BookSide::Bid);
     CHECK(check.level == 1);
@@ -70,7 +70,7 @@ TEST_CASE("Price differs at ask lvl 3"){
     TopOfBook act = makeTest({{275200, 66}, {275100, 400}, {275300, 1000}, {275000, 100}},
                              {{275200, 66}, {275100, 400}, {275300, 1000}, {275000, 100}});
 
-    DiffResult check = BookDiff(mine, act);
+    DiffResult check = BookDiff(mine, act, 5);
     CHECK_FALSE(check.match);
     CHECK(check.side == BookSide::Ask);
     CHECK(check.level == 3);
@@ -85,7 +85,7 @@ TEST_CASE("My book thinner"){
     TopOfBook act = makeTest({{275200, 66}, {275100, 400}, {275500, 1000}, {275000, 100}}, 
                               {{275300, 66}, {275100, 400}, {275300, 1000}, {275000, 100}});
 
-    DiffResult check = BookDiff(mine, act);
+    DiffResult check = BookDiff(mine, act, 5);
     CHECK_FALSE(check.match);
     CHECK(check.field == Field::Occupancy);
     CHECK(check.expected == 4);
@@ -98,7 +98,7 @@ TEST_CASE("My book bigger"){
                               {{275200, 66}, {275100, 400}});
     TopOfBook mine = makeTest({{275200, 66}, {275100, 400}, {275500, 1000}, {275000, 100}}, 
                               {{275200, 66}, {275100, 400}, {275300, 1000}, {275000, 100}});
-    DiffResult check = BookDiff(mine, act);
+    DiffResult check = BookDiff(mine, act, 5);
     
     CHECK_FALSE(check.match);
     CHECK(check.field == Field::Occupancy);

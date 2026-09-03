@@ -124,26 +124,3 @@ void print_mismatch(std::ostream& os, size_t event_idx, const NormalizedMessage&
 
     print_side_by_side(os, mine, ref, levels);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
