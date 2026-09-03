@@ -17,12 +17,14 @@ add_library(LOBSim
     src/BookDiff.cpp
     src/OrderBook.cpp
     src/Apply.cpp
+    src/Report.cpp
     include/NormalizedMessage.h
     include/ReferenceBook.h
     include/TopOfBook.h
     include/DiffResult.h
     include/OrderBook.h
     include/Apply.h
+    include/Report.h
 )
 
 target_include_directories(LOBSim PUBLIC include)
