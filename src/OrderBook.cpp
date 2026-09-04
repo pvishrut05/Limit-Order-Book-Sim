@@ -28,7 +28,9 @@ void OrderBook::New(uint64_t order_id, uint32_t size, int64_t price, int8_t side
     orders_[order_id].size = size;
     orders_[order_id].side = side;
 }
-void OrderBook::Cancel(uint64_t order_id, uint32_t size){}
+void OrderBook::Cancel(uint64_t order_id, uint32_t size){
+
+}
 void OrderBook::Delete(uint64_t order_id){}
 void OrderBook::Execute(uint64_t order_id, uint32_t size){}
 //have a SetUp function that will get the top-10 level 10? also do some tracking by hand to get a better understanding of how the types work, how the bid and ask work.
@@ -54,15 +56,15 @@ TopOfBook OrderBook::top(int lvl) const{
     }
 
     if(asks_.size() >= 10){
-        a.n_ask = 10;
+        a.n_ask = lvl;
     }else{
-        a.n_ask = static_cast<uint8_t>(asks_.size());
+        a.n_ask = std::min(static_cast<uint8_t>(asks_.size()),static_cast<uint8_t>(lvl));
     }
 
     if(bids_.size() >= 10){
-        a.n_bid = 10;
+        a.n_bid = lvl;
     }else{
-        a.n_bid = static_cast<uint8_t>(bids_.size());
+        a.n_bid = std::min(static_cast<uint8_t>(bids_.size()),static_cast<uint8_t>(lvl));
     }
     return a;
 

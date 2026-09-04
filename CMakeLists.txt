@@ -37,7 +37,7 @@ add_executable(replay src/main.cpp)
 target_link_libraries(replay PRIVATE LOBSim)
 target_compile_options(replay PRIVATE -Wall -Wextra)
 
-add_executable(test tests/test_main.cpp tests/test_book_diff.cpp)
+add_executable(test tests/test_main.cpp tests/test_book_diff.cpp tests/test_order_book.cpp)
 target_link_libraries(test PRIVATE LOBSim)
 target_include_directories(test PRIVATE third_party)
 
