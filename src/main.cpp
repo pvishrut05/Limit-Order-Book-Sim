@@ -21,9 +21,12 @@
 int main(int argc, char* argv[]){
     size_t start = 0;
     size_t limit = 624040;
+    size_t seedr = 0;
     int level = 10;
     string message, book;
+    bool no_seed = false;
 
+//maybe seed and start are the same, will have to come back to this
     for(int i = 1; i < argc; i++){
         string a = argv[i];
         if(a == "--levels" && argc > i + 1) level = stoi(argv[++i]);
@@ -31,6 +34,8 @@ int main(int argc, char* argv[]){
         else if(a == "--limit" && argc > i + 1) limit = stoi(argv[++i]);
         else if(a == "--messages" && argc > i + 1) message = argv[++i];
         else if(a == "--book" && argc > i + 1) book = argv[++i];
+        else if( a == "--no-seed") no_seed = true;
+        else if(a == "--seed" && argc > i + 1) seedr = stoull(argv[++i]);
         else {cerr << "Unknown command line argument "; return 2;}
     }
 
@@ -71,12 +76,37 @@ int main(int argc, char* argv[]){
         return 2;
     }
 
-    size_t end = b.size();
-    if(limit > 0 && start + limit < end) end = start + limit;
+    
 
     OrderBook ob;
     int errorRecord = 0;
     auto t_run_start = clock::now();
+
+
+    size_t first_event = start;
+    if (!no_seed) {
+        if (seedr >= b.size()) {
+            std::cerr << "--seed-row " << seedr << " is past the end ("
+                    << b.size() << " rows)\n";
+            return 2;
+        }
+        ob.seed(b[seedr]);
+
+        // Prove the seed landed: compare against the row we copied, before
+        // applying anything.
+        DiffResult d0 = BookDiff(ob.top(level), b[seedr], level);
+        if (!d0.match) {
+            std::cout << "seed did not reproduce reference row " << seedr << "\n";
+            print_mismatch(std::cout, seedr, msg[seedr], d0,
+                        ob.top(level), b[seedr], level);
+            return 1;
+        }
+        std::cout << "seeded from reference row " << seedr << " -- exact match\n";
+        first_event = std::max(start, seedr + 1);
+    }
+
+    size_t end = b.size();
+    if(limit > 0 && first_event + limit < end) end = first_event + limit;
 
     for(auto i = start; i < limit; i++){
         apply(ob, msg[i]);

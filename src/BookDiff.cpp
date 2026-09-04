@@ -9,7 +9,7 @@ static DiffResult Mismatch(BookSide s, int l, Field f, int64_t exp, int64_t act)
 
 
 
-DiffResult BookDiff(TopOfBook& mine, TopOfBook& real, int lvl){
+DiffResult BookDiff(const TopOfBook& mine, const TopOfBook& real, int lvl){
 
     if(mine.n_ask != real.n_ask){
         return Mismatch(BookSide::Ask, 0, Field::Occupancy, real.n_ask, mine.n_ask);

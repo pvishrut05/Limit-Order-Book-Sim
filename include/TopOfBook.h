@@ -10,6 +10,12 @@ struct Level {
 
 };
 
+struct RestingOrder{
+    int64_t price_ticks;
+    uint64_t size;
+    int8_t side;
+};
+
 struct TopOfBook{
     Level ask[10];
     Level bid[10];
