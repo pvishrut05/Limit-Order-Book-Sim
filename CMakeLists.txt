@@ -18,6 +18,7 @@ add_library(LOBSim
     src/OrderBook.cpp
     src/Apply.cpp
     src/Report.cpp
+    src/IsSane.cpp
     include/NormalizedMessage.h
     include/ReferenceBook.h
     include/TopOfBook.h
@@ -25,6 +26,7 @@ add_library(LOBSim
     include/OrderBook.h
     include/Apply.h
     include/Report.h
+    include/IsSane.h
 )
 
 target_include_directories(LOBSim PUBLIC include)
