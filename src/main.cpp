@@ -108,7 +108,7 @@ int main(int argc, char* argv[]){
     size_t end = b.size();
     if(limit > 0 && first_event + limit < end) end = first_event + limit;
 
-    for(auto i = start; i < limit; i++){
+    for(auto i = first_event; i < end; i++){
         apply(ob, msg[i]);
 
         TopOfBook mine = ob.top(level);

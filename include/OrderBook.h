@@ -16,7 +16,7 @@ class OrderBook {
         void seed(const TopOfBook& snap);
         size_t unknown_id_hits() const {return unknown_id_hits_;}
 
-        TopOfBook top(int lvl);
+        TopOfBook top(int lvl) const;
     private:
         std::map<int64_t, uint64_t, std::greater<int64_t>>  bids_;
         std::map<int64_t, uint64_t>                         asks_;
