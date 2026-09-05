@@ -8,13 +8,13 @@ void apply(OrderBook& book, NormalizedMessage& m){
             book.New(m.order_id, m.size, m.price, m.side);
             break;
         case MsgType::Cancel: 
-            book.Cancel(m.order_id, m.size);
+            book.Cancel(m.order_id, m.size, m.price, m.side);
             break;
         case MsgType::Delete: 
-            book.Delete(m.order_id);
+            book.Delete(m.order_id, m.size, m.price, m.side);
             break;
         case MsgType::Execute: 
-            book.Execute(m.order_id, m.size);
+            book.Execute(m.order_id, m.size, m.price, m.side);
             break;
         case MsgType::Hidden:
             //No need to work on these, as hidden doesn't change anything within the book, cross is getting something outside, and halt just changes the state doesn't effect the book

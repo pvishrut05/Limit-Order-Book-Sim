@@ -10,6 +10,8 @@ TEST_CASE("three adds per side, distinct prices") {
     b.New(1002, 300, 2649, 1);
     b.New(1003, 100, 2648, 1);
 
+
+
     b.New(2001, 400, 2651, -1);
     b.New(2002, 200, 2652, -1);
     b.New(2003, 600, 2653, -1);

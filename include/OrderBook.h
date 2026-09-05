@@ -10,9 +10,9 @@
 class OrderBook {
     public:
         void New(uint64_t order_id, uint32_t size, int64_t price, int8_t side);
-        void Cancel(uint64_t order_id, uint32_t size);
-        void Delete(uint64_t order_id);
-        void Execute(uint64_t order_id, uint32_t size);
+        void Cancel(uint64_t order_id, uint32_t size, int64_t price, int8_t side);
+        void Delete(uint64_t order_id, uint32_t size, int64_t price, int8_t side);
+        void Execute(uint64_t order_id, uint32_t size, int64_t price, int8_t side);
         void seed(const TopOfBook& snap);
         size_t unknown_id_hits() const {return unknown_id_hits_;}
 
