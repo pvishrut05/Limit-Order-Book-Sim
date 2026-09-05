@@ -11,10 +11,14 @@ static DiffResult Mismatch(BookSide s, int l, Field f, int64_t exp, int64_t act)
 
 DiffResult BookDiff(const TopOfBook& mine, const TopOfBook& real, int lvl){
 
-    if(mine.n_ask != real.n_ask){
+    int mine_na = std::min<int>(mine.n_ask, lvl);
+    int real_na = std::min<int>(real.n_ask, lvl);
+    if(mine_na != real_na){
         return Mismatch(BookSide::Ask, 0, Field::Occupancy, real.n_ask, mine.n_ask);
     }
-    if(mine.n_bid != real.n_bid){
+    int mine_nb = std::min<int>(mine.n_bid, lvl);
+    int real_nb = std::min<int>(real.n_bid, lvl);
+    if(mine_nb != real_nb){
         return Mismatch(BookSide::Bid, 0, Field::Occupancy, real.n_bid, mine.n_ask);
     }
 

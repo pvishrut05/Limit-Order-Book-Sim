@@ -18,26 +18,32 @@ std::string hhmmss(uint64_t ts_ns) {
     return buf;
 }
 
+std::string dollars(int64_t ticks) {
+    char buf[32];
+    std::snprintf(buf, sizeof buf, "%.2f", static_cast<double>(ticks) / 10000.0);
+    return buf;
+}
+
 void print_side_by_side(std::ostream& os, const TopOfBook& mine,
                         const TopOfBook& ref, int levels) {
     os << "\n         " << std::setw(28) << "MINE"
        << "   |   " << std::setw(28) << "REFERENCE" << "\n";
-    os << "  lvl  " << std::setw(12) << "bid" << std::setw(8) << "sz"
-       << std::setw(12) << "ask" << std::setw(8) << "sz"
-       << "  | " << std::setw(12) << "bid" << std::setw(8) << "sz"
-       << std::setw(12) << "ask" << std::setw(8) << "sz" << "\n";
+    os << "  lvl  " << std::setw(12) << "ask" << std::setw(8) << "sz"
+       << std::setw(12) << "bid" << std::setw(8) << "sz"
+       << "  | " << std::setw(12) << "ask" << std::setw(8) << "sz"
+       << std::setw(12) << "bid" << std::setw(8) << "sz" << "\n";
 
     for (int i = 0; i < levels; ++i) {
         os << "  " << std::setw(3) << (i + 1) << "  ";
         auto cell = [&](const TopOfBook& b) {
             if (i < b.n_ask)
-                os << std::setw(12) << b.ask[i].price
+                os << std::setw(12) << (b.ask[i].price)
                    << std::setw(8)  << b.ask[i].size;
             else
                 os << std::setw(12) << "--" << std::setw(8) << "--";
             
             if (i < b.n_bid)
-                os << std::setw(12) << b.bid[i].price
+                os << std::setw(12) << (b.bid[i].price)
                    << std::setw(8)  << b.bid[i].size;
             else
                 os << std::setw(12) << "--" << std::setw(8) << "--";
@@ -57,7 +63,8 @@ void print_side_by_side(std::ostream& os, const TopOfBook& mine,
 
 void print_histogram(ostream& os, vector<NormalizedMessage>& msgs, size_t ref_row){
     size_t counts[8] = {};
-    uint64_t min_px = INT64_MAX, max_px = INT64_MIN;
+    uint64_t min_px = std::numeric_limits<uint64_t>::max();
+    uint64_t max_px = std::numeric_limits<uint64_t>::min();
     std::unordered_set<uint64_t> add_ids;
 
     for (const NormalizedMessage& m : msgs) {
@@ -77,8 +84,8 @@ void print_histogram(ostream& os, vector<NormalizedMessage>& msgs, size_t ref_ro
     if (!msgs.empty()) {
         os << "  first ts        " << hhmmss(msgs.front().timestamp_ns) << "\n";
         os << "  last ts         " << hhmmss(msgs.back().timestamp_ns)  << "\n";
-        os << "  price range     $" << min_px
-           << " .. $" << max_px << "\n";
+        os << "  price range     $" << dollars(min_px)
+           << " .. $" << dollars(max_px) << "\n";
     }
     os << "  distinct add ids " << add_ids.size() << "\n";
 
@@ -113,7 +120,7 @@ void print_mismatch(std::ostream& os, size_t event_idx, const NormalizedMessage&
     os << "  message   " << msgToChar(static_cast<MsgType>(m.type))
        << "  id " << m.order_id
        << "  " << (m.side == 1 ? 'B' : 'S')
-       << "  $" << m.price << " (" << m.price << " ticks)"
+       << "  $" << dollars(m.price) << " (" << m.price << " ticks)"
        << "  x" << m.size
        << "  @ " << hhmmss(m.timestamp_ns) << "\n";
     os << "  field     " << side << " " << field;

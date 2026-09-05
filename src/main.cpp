@@ -12,6 +12,7 @@
 #include <sstream>
 #include <string>
 #include <chrono>
+#include <map>
 
 
 //0 on clean
@@ -25,6 +26,8 @@ int main(int argc, char* argv[]){
     int level = 10;
     string message, book;
     bool no_seed = false;
+    bool diffCheck = true;
+   
 
 //maybe seed and start are the same, will have to come back to this
     for(int i = 1; i < argc; i++){
@@ -36,6 +39,7 @@ int main(int argc, char* argv[]){
         else if(a == "--book" && argc > i + 1) book = argv[++i];
         else if( a == "--no-seed") no_seed = true;
         else if(a == "--seed" && argc > i + 1) seedr = stoull(argv[++i]);
+        else if( a == "--no-diff") diffCheck = false;
         else {cerr << "Unknown command line argument "; return 2;}
     }
 
@@ -76,8 +80,6 @@ int main(int argc, char* argv[]){
         return 2;
     }
 
-    
-
     OrderBook ob;
     int errorRecord = 0;
     auto t_run_start = clock::now();
@@ -90,7 +92,10 @@ int main(int argc, char* argv[]){
                     << b.size() << " rows)\n";
             return 2;
         }
+        
         ob.seed(b[seedr]);
+        
+        
 
         // Prove the seed landed: compare against the row we copied, before
         // applying anything.
@@ -108,18 +113,25 @@ int main(int argc, char* argv[]){
     size_t end = b.size();
     if(limit > 0 && first_event + limit < end) end = first_event + limit;
 
+    if(diffCheck == false){
+        cout << "Not Checking for differences with reference book\n";
+    }
+
+    
     for(auto i = first_event; i < end; i++){
+        
         apply(ob, msg[i]);
-
+        
+        
         TopOfBook mine = ob.top(level);
-
         DiffResult d = BookDiff(mine, b[i], level);
 
-        if(!d.match){
+        if(!d.match && diffCheck == true){
             print_mismatch(cout, i, msg[i], d, mine, b[i], level);
             errorRecord = 1;
             break;
         }
+
 
     }
 
@@ -129,13 +141,11 @@ int main(int argc, char* argv[]){
         return chrono::duration_cast<chrono::milliseconds>(b-a).count();
     };
 
-    cerr << "\nload  " << ms(t_load_start, t_load_end) << " ms\n"
+    if(errorRecord == 0 && diffCheck == true) cout << "\nclean match over " << (end - first_event) << " events\n";
+
+    std::cout << "\nTime Measurement\nload  " << ms(t_load_start, t_load_end) << " ms\n"
          << "replay " << ms(t_run_start, t_run_end)   << " ms\n";
 
-
-
-    if(errorRecord == 0) cout << "\nclean match over " << (end - start) << " events\n";
-
     return errorRecord;
-
 }
+
