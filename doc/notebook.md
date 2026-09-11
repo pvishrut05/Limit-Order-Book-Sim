@@ -24,3 +24,6 @@ which removed the whole size and therefore erased the whole map[i]
 09-05-2025. There is no ITCH 50 level that's available for 2012-06-21. Changing it so that I won't match completely with reference orderbook.
 
 09-05-2025. Leaving this as is, as my engine works completely fine, it's just LOBSTER doesn't have data past it's price range. Next plan is to work making a ITCH binary into a complete (if possible lvl 50) message orderbook. 
+
+09-10-205. Took a 2 day break, was applying to internships. The plan for this week: first try to understand the ITCH format, if I can make a praser within a week, I will do that, other wise I will get a open source praser and make the message. 
+
